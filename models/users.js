@@ -3,6 +3,10 @@ import md5 from 'md5'
 import validator from 'validator'
 
 const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, '名字不能為空']
+  },
   account: {
     type: String,
     minlength: [4, '帳號必須 4 個字以上'],
