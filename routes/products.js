@@ -14,7 +14,7 @@ const router = express.Router()
 
 router.post('/', auth, admin, content('multipart/form-data'), upload, create)
 router.get('/', getProducts)
-router.get('/', auth, admin, getAllProducts)
+router.get('/all', auth, admin, getAllProducts)
 router.get('/:id', getProductById)
 
 export default router
