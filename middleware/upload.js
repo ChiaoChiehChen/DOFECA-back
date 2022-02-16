@@ -9,9 +9,11 @@ cloudinary.config({
 })
 
 const upload = multer({
+  // 雲端上傳
   storage: new CloudinaryStorage({ cloudinary }),
   fileFilter (req, file, cb) {
     if (!file.mimetype.includes('image')) {
+      // 觸發自訂的 LIMIT_FORMAT 錯誤
       cb(new multer.MulterError('LIMIT_FORMAT'), false)
     } else {
       cb(null, true)
