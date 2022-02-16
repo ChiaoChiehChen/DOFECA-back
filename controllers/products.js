@@ -3,14 +3,8 @@ import products from '../models/products.js'
 //  新增商品
 export const create = async (req, res) => {
   try {
-    let result
     req.body.category = JSON.parse(req.body.category)
-
-    if (req.file) {
-      result = await products.create({ ...req.body, image: req.file.path })
-    } else {
-      result = await products.create({ ...req.body })
-    }
+    const result = await products.create({ ...req.body, image: req.file.path })
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     console.log(error)
