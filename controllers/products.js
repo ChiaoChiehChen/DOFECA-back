@@ -52,3 +52,7 @@ export const getProductById = async (req, res) => {
     }
   }
 }
+
+export const updateProductById = async (req,res) => {
+
+}
