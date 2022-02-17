@@ -17,6 +17,6 @@ router.post('/', auth, admin, content('multipart/form-data'), upload, create)
 router.get('/', getProducts)
 router.get('/all', auth, admin, getAllProducts)
 router.get('/:id', getProductById)
-router.patch('/:id', updateProductById)
+router.patch('/:id', auth, admin, content('multipart/form-data'), upload, updateProductById)
 
 export default router
