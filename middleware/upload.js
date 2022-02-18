@@ -9,7 +9,7 @@ cloudinary.config({
 })
 
 const upload = multer({
-  // 雲端上傳
+  // 雲端上傳設定
   storage: new CloudinaryStorage({ cloudinary }),
   fileFilter (req, file, cb) {
     if (!file.mimetype.includes('image')) {
