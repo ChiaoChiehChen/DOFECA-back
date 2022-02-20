@@ -87,7 +87,7 @@ export const addCart = async (req, res) => {
       req.user.cart[idx].quantity += req.body.quantity
     } else {
       // 再找商品id
-      const result = await products.findById(req.body.products)
+      const result = await products.findById(req.body.product)
       if (!result || !result.sell) {
         res.status(404).send({ success: false, message: '商品不存在' })
         return
@@ -121,8 +121,26 @@ export const getCart = async (req, res) => {
 // 編輯
 export const updateCart = async (req, res) => {
   try {
-
+    if (req.body.quantity === 0) {
+      await users.findByIdAndUpdate(req.user._id,
+        {
+          $pull: {
+            cart: { product: req.body.product }
+          }
+        })
+      res.status(200).send({ success: true, message: '' })
+    } else {
+      await users.findOneAndUpdate(
+        { _id: req.user._id, 'cart.product': req.body.product },
+        {
+          $set: {
+            'cart.$.quantity': req.body.quantity
+          }
+        }
+      )
+      res.status(200).send({ success: true, message: '' })
+    }
   } catch (error) {
-
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
