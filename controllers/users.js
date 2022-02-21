@@ -118,26 +118,22 @@ export const getCart = async (req, res) => {
   }
 }
 
-// 編輯
+// 編輯購物車
 export const updateCart = async (req, res) => {
   try {
     if (req.body.quantity === 0) {
-      await users.findByIdAndUpdate(req.user._id,
-        {
-          $pull: {
-            cart: { product: req.body.product }
-          }
-        })
+      const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
+      if (idx > -1) {
+        req.user.cart.splice(idx, 1)
+      }
+      await req.user.save()
       res.status(200).send({ success: true, message: '' })
     } else {
-      await users.findOneAndUpdate(
-        { _id: req.user._id, 'cart.product': req.body.product },
-        {
-          $set: {
-            'cart.$.quantity': req.body.quantity
-          }
-        }
-      )
+      const idx = req.user.cart.findIndex(item => item.product.toString() === req.body.product)
+      if (idx > -1) {
+        req.user.cart[idx].quantity = req.body.quantity
+      }
+      await req.user.save()
       res.status(200).send({ success: true, message: '' })
     }
   } catch (error) {
