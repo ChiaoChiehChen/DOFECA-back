@@ -12,5 +12,7 @@ import {
 const router = express.Router()
 
 router.post('/', auth, content('application/json'), checkout)
-router.get('/orders/me', auth, getMyOrders)
-router.get('/orders/all', auth, admin, getAllOrders)
+router.get('/me', auth, getMyOrders)
+router.get('/all', auth, admin, getAllOrders)
+
+export default router
