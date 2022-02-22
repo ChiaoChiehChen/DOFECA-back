@@ -6,6 +6,9 @@ export const checkout = async (req, res) => {
   try {
     const hasNotSell = await users.aggregate([
       {
+        $match: {
+          _id: req.user._id
+        },
         $project: {
           'cart.product': 1
         }
@@ -22,7 +25,7 @@ export const checkout = async (req, res) => {
         }
       }
     ])
-    if (hasNotSell) {
+    if (hasNotSell.length > 0) {
       res.status(400).send({ success: false, message: '包含下架商品' })
       return
     }
