@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  name: {
+  recipient: {
     type: String,
     unique: true
   },
@@ -35,7 +35,7 @@ const orderSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, '信箱不能為空'],
+    // required: [true, '信箱不能為空'],
     unique: true,
     validate: {
       validator (email) {

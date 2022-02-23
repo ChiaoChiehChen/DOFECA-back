@@ -3,23 +3,32 @@ import users from '../models/users.js'
 
 // 結帳
 export const checkout = async (req, res) => {
+  // console.log(req.body)
   try {
+    if (req.user.cart.length === 0) {
+      res.status(400).send({ success: false, message: '購物車是空的' })
+      return
+    }
     const hasNotSell = await users.aggregate([
       {
         $match: {
           _id: req.user._id
-        },
+        }
+      },
+      {
         $project: {
           'cart.product': 1
         }
-      }, {
+      },
+      {
         $lookup: {
           from: 'products',
           localField: 'cart.product',
           foreignField: '_id',
           as: 'cart.product'
         }
-      }, {
+      },
+      {
         $match: {
           'cart.product.sell': false
         }
@@ -29,16 +38,18 @@ export const checkout = async (req, res) => {
       res.status(400).send({ success: false, message: '包含下架商品' })
       return
     }
-    const result = await orders.create({ user: req.user._id, products: req.user.cart, name: req.body.name, phone: req.body.phone, email: req.body.email, delivery: req.body.delivery, payment: req.body.payment, address: req.body.address, memo: req.body.memo })
-
+    const result = await orders.create({ user: req.user._id, products: req.user.cart, recipient: req.body.recipient, phone: req.body.phone, email: req.body.email, delivery: req.body.delivery, payment: req.body.payment, address: req.body.address, memo: req.body.memo })
+    // 使用者的訂單 })
     req.user.cart = []
     await req.user.save()
     res.status(200).send({ success: false, message: '', result: result._id })
   } catch (error) {
     if (error.name === 'ValidationError') {
+      console.log(error)
       const key = Object.keys(error.errors)[0]
       res.status(400).send({ success: false, message: error.errors[key].message })
     } else {
+      console.log(error)
       res.status(500).send({ success: false, message: '伺服器錯誤' })
     }
   }
