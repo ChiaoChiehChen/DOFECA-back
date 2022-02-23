@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import validator from 'validator'
 
 const orderSchema = new mongoose.Schema({
   user: {
@@ -23,6 +24,38 @@ const orderSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  name: {
+    type: String,
+    unique: true
+  },
+  phone: {
+    type: String,
+    unique: true
+  },
+  email: {
+    type: String,
+    required: [true, '信箱不能為空'],
+    unique: true,
+    validate: {
+      validator (email) {
+        return validator.isEmail(email)
+      },
+      message: '信箱格式錯誤'
+    }
+  },
+  delivery: {
+    type: String
+  },
+  payment: {
+    type: String
+  },
+  address: {
+    type: String,
+    default: ''
+  },
+  memo: {
+    type: String
   }
 }, { versionKey: false })
 
