@@ -42,7 +42,7 @@ export const checkout = async (req, res) => {
     // 使用者的訂單 })
     req.user.cart = []
     await req.user.save()
-    res.status(200).send({ success: false, message: '', result: result._id })
+    res.status(200).send({ success: true, message: '', result: result._id })
   } catch (error) {
     if (error.name === 'ValidationError') {
       console.log(error)
@@ -69,7 +69,8 @@ export const getMyOrders = async (req, res) => {
 // 所有人訂單(管理者)
 export const getAllOrders = async (req, res) => {
   try {
-    const result = await orders.find({ user: req.user._id }).populate('user', 'account').populate('products.product')
+    // .populate('user', 'account name')
+    const result = await orders.find().populate('user', ['account', 'name']).populate('products.product')
     res.status(200).send({ success: false, message: '', result })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
