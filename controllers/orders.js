@@ -62,6 +62,7 @@ export const getMyOrders = async (req, res) => {
     const result = await orders.find({ user: req.user._id }).populate('products.product')
     res.status(200).send({ success: false, message: '', result })
   } catch (error) {
+    console.log(error)
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }

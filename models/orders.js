@@ -26,12 +26,10 @@ const orderSchema = new mongoose.Schema({
     default: Date.now
   },
   recipient: {
-    type: String,
-    unique: true
+    type: String
   },
   phone: {
-    type: String,
-    unique: true
+    type: String
   },
   email: {
     type: String,
