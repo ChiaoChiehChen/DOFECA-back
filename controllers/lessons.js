@@ -8,7 +8,6 @@ export const lessonsCreate = async (req, res) => {
     const result = await lessons.create({ lessonName: req.body.lessonName, price: req.body.price })
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
-    console.log(error)
     // console.log(error)
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
@@ -35,7 +34,7 @@ export const getSignUP = async (req, res) => {
   console.log(req.body)
   try {
     const result = await lessons.create({ user: req.user._id, lessons: req.body })
-    console.log('result' + result)
+    // console.log('result' + result)
     await req.user.save()
     // console.log('123')
     res.status(200).send({ success: true, message: '', result })
