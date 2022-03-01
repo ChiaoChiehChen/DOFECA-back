@@ -6,10 +6,11 @@ import admin from '../middleware/admin.js'
 import {
   lessonsCreate,
   getLessons,
-  getAllLessons
+  // getAllLessons
   // getMyLessons,
-  // delLessons
-} from '../controllers/products.js'
+  getSignUP,
+  delLessons
+} from '../controllers/lessons.js'
 
 const router = express.Router()
 
@@ -17,8 +18,9 @@ const router = express.Router()
 router.post('/', auth, admin, content('application/json'), lessonsCreate)
 // 所有課程
 router.get('/', getLessons)
-router.get('/all', auth, admin, getAllLessons)
-// router.get('/myLessons', getMyLessons)
-// router.delete('/:id', auth, admin, delLessons)
+router.post('/apply', content('application/json'), auth, getSignUP)
+// router.get('/all', auth, admin, getAllLessons)
+// router.get('/me', getMyLessons)
+router.delete('/:id', auth, admin, delLessons)
 
 export default router

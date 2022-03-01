@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const productSchema = new mongoose.Schema({
+const lessonsOrderSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, '商品不能為空']
@@ -28,6 +28,6 @@ const productSchema = new mongoose.Schema({
       type: String
     }
   }
-}, { versionsLey: false })
+}, { versionsKey: false })
 
-export default mongoose.model('products', productSchema)
+export default mongoose.model('products', lessonsOrderSchema)

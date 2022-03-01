@@ -6,7 +6,7 @@ const lessonsSchema = new mongoose.Schema({
     type: mongoose.ObjectId,
     ref: 'users'
   },
-  lesson: {
+  lessonName: {
     type: String,
     required: [true, '商品不能為空']
   },
@@ -41,4 +41,4 @@ const lessonsSchema = new mongoose.Schema({
   }
 }, { versionKey: false })
 
-export default mongoose.model('orders', lessonsSchema)
+export default mongoose.model('lessons', lessonsSchema)
