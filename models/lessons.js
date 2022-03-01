@@ -8,12 +8,12 @@ const lessonsSchema = new mongoose.Schema({
   },
   lessonName: {
     type: String,
-    required: [true, '商品不能為空']
+    required: [true, '課程不能為空']
   },
   price: {
     type: Number,
     min: [0, '價格格式不正確'],
-    required: [true, '商品價格不能為空']
+    required: [true, '課程價格不能為空']
   },
   date: {
     type: Date,
