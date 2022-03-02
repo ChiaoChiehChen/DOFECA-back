@@ -3,6 +3,7 @@ import content from '../middleware/content.js'
 import auth from '../middleware/auth.js'
 import admin from '../middleware/admin.js'
 import upload from '../middleware/upload.js'
+
 import {
   create,
   getProducts,

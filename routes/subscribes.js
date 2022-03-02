@@ -6,7 +6,7 @@ import admin from '../middleware/admin.js'
 import {
   subscriber,
   subscribeDetail
-} from '../controllers/subscribes'
+} from '../controllers/subscribes.js'
 
 const router = express.Router()
 

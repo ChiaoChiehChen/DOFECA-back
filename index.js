@@ -6,6 +6,7 @@ import usersRouter from './routes/users.js'
 import productsRouter from './routes/products.js'
 import ordersRouter from './routes/orders.js'
 import lessonsRouter from './routes/lessons.js'
+import subscribesRouter from './routes/subscribes.js'
 
 Mongoose.connect(process.env.DB_URL, () => {
   console.log('MongoDB Connected')
@@ -38,9 +39,10 @@ app.use('/users', usersRouter)
 app.use('/products', productsRouter)
 app.use('/orders', ordersRouter)
 app.use('/lessons', lessonsRouter)
+app.use('/subscribes', subscribesRouter)
 
 app.all('*', (req, res) => {
-  res.status(404).send({ success: false, message: '找不到0.1321' })
+  res.status(404).send({ success: false, message: '找不到' })
 })
 
 app.listen(process.env.PORT || 3000, () => {

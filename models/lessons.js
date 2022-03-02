@@ -7,13 +7,13 @@ const lessonsSchema = new mongoose.Schema({
     ref: 'users'
   },
   lessonName: {
-    type: String,
-    required: [true, '課程不能為空']
+    type: String
+    // required: [true, '課程不能為空']
   },
   price: {
     type: Number,
-    min: [0, '價格格式不正確'],
-    required: [true, '課程價格不能為空']
+    min: [0, '價格格式不正確']
+    // required: [true, '課程價格不能為空']
   },
   date: {
     type: Date,
@@ -24,6 +24,10 @@ const lessonsSchema = new mongoose.Schema({
   },
   phone: {
     type: String
+  },
+  sell: {
+    type: Boolean,
+    default: false
   },
   email: {
     type: String,
