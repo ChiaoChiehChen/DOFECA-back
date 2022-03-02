@@ -3,7 +3,7 @@ import lessons from '../models/lessons.js'
 //  新增課程
 export const lessonsCreate = async (req, res) => {
   try {
-    // console.log(req)
+    // console.log(req.body.sell)
     // const result = await lessons.create({ ...req.body, user: req.user._id, lesson: req.body.lessons })
     const result = await lessons.create({ lessonName: req.body.lessonName, price: req.body.price })
     res.status(200).send({ success: true, message: '', result })
@@ -13,7 +13,8 @@ export const lessonsCreate = async (req, res) => {
       const key = Object.keys(error.errors)[0]
       res.status(400).send({ success: false, message: error.errors[key].message })
     } else {
-      res.status(500).send({ success: false, message: '5555555' })
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
     }
   }
 }
@@ -28,7 +29,7 @@ export const getLessons = async (req, res) => {
   }
 }
 
-// 管理者看所有課程
+// 管理員看所有課程
 export const getLessonsAll = async (req, res) => {
   try {
     const result = await lessons.find()
@@ -61,7 +62,7 @@ export const getSignUP = async (req, res) => {
 
 export const getAllLessons = async (req, res) => {
   try {
-    const result = await lessons.find().populate(('user', ['account', 'name']))
+    const result = await lessons.find().populate('user', ['account', 'name'])
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
