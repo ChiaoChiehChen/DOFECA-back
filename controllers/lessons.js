@@ -5,7 +5,7 @@ export const lessonsCreate = async (req, res) => {
   try {
     // console.log(req.body.sell)
     // const result = await lessons.create({ ...req.body, user: req.user._id, lesson: req.body.lessons })
-    const result = await lessons.create({ lessonName: req.body.lessonName, price: req.body.price })
+    const result = await lessons.create({ lessonName: req.body.lessonName, price: req.body.price, sell: req.body.sell })
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     // console.log(error)
